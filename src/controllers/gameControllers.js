@@ -3,10 +3,19 @@ import connection from "../dbStrategy/postgres.js";
 export async function getGames(request, response){
     const {name} = request.query;
     try {
-        const {rows: games} = await connection.query(`SELECT games.*, categories.name as "categoryName" 
-                                                      FROM games 
-                                                      JOIN categories 
-                                                      ON games."categoryId" = categories.id;`);
+        const query = (name ? `SELECT games.*, categories.name AS "categoryName"
+                               FROM games
+                               JOIN categories 
+                               ON games."categoryId" = categories.id
+                               WHERE LOWER(games.name) LIKE LOWER($1);`
+                             :`SELECT games.*, categories.name AS "categoryName" 
+                               FROM games 
+                               JOIN categories 
+                               ON games."categoryId" = categories.id;`)
+                             
+                       
+        
+        const {rows: games} = await connection.query(query, name ? [`${name}%`] : null);
         response.status(200).send(games);
     }catch(error){
         response.sendStatus(500);

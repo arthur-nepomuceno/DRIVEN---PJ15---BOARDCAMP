@@ -5,8 +5,8 @@ export async function validadePostCategory(request, response, next){
     const body = request.body;
     
     try {
-        const validationSchema = joi.object({name: joi.string().required()})
-        const validation = validationSchema.validate(body, {abortEarly: false});
+        const schema = joi.object({name: joi.string().required()})
+        const validation = schema.validate(body, {abortEarly: false});
         
         const {rows: categories} = await connection.query(`SELECT * FROM categories`);
         let sameName = false;
