@@ -6,7 +6,6 @@ export async function validadePostCategory(request, response, next){
     
     const schema = joi.object({name: joi.string().required()})
     const validation = schema.validate(body, {abortEarly: false});
-
     if(validation.error){
         return response.status(400).send(validation.error.details);
     }
@@ -18,15 +17,13 @@ export async function validadePostCategory(request, response, next){
             if(category.name === body.name){
                 sameName = true;
             }
-        }
-        
+        }        
         if(sameName){
             return response.sendStatus(409)
-        } else {
-            next();
-        }
-        
+        }     
     } catch(error){
         return response.sendStatus(500);
     }
+
+    next();
 }

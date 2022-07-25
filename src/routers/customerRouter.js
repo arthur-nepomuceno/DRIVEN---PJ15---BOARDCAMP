@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { postCustomer } from "../controllers/customerControllers.js";
-import validatePostCustomer from "../middlewares/customerMiddleware.js";
+import { getCustomers, getCustomerById ,postCustomers, putCustomerById } from "../controllers/customerControllers.js";
+import { validatePostCustomer, validateGetCostumerById, validatePutCostumerById} from "../middlewares/customerMiddlewares.js";
 
 const customerRouter = Router();
 
-customerRouter.post('/customers', validatePostCustomer ,postCustomer);
-
+customerRouter.get('/customers', getCustomers);
+customerRouter.get('/customers/:id', validateGetCostumerById ,getCustomerById);
+customerRouter.post('/customers', validatePostCustomer ,postCustomers);
+customerRouter.put('/customers/:id', validatePutCostumerById ,putCustomerById);
 export default customerRouter;
