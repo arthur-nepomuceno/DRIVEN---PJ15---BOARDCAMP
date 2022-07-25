@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import categoryRouter from './routers/categoryRouter.js';
 import gameRouter from './routers/gameRouter.js';
 import customerRouter from './routers/customerRouter.js';
+import rentalRouter from './routers/rentalRouter.js';
 
 dotenv.config();
 
@@ -13,7 +14,8 @@ server.use(cors(), express.json());
 
 server.use(categoryRouter);
 server.use(gameRouter);
-server.use(customerRouter)
+server.use(customerRouter);
+server.use(rentalRouter);
 
 const PORT = 4000 || process.env.PORT;
 server.listen(PORT, () => {console.log(`Server online at port ${PORT}`)});
