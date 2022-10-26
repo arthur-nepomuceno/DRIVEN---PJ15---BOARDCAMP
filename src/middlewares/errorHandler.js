@@ -1,7 +1,9 @@
-export function errorHandler(req, res, next, error){
+export function errorHandler(error, req, res, next){
     console.log(error);
 
-    //if(error.type === 'my_error_message') return res.status(status_code).send(error.message);
+    const {type, status, message} = error;
 
-    res.status(500).send(`Unexpected server error: ${error}.`)
+    if(type === 'invalid_name') return res.status(status).send(message);
+
+    return res.status(500).send(`Unexpected server error: ${error}.`)
 }

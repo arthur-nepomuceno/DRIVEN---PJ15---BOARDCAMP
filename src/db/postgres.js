@@ -5,5 +5,5 @@ dotenv.config();
 const { Pool } = pkg;
 
 export const database = new Pool({
-    connectionString: process.env.DATABASE_URL 
+    connectionString: process.env.DATABASE_URL,
 });

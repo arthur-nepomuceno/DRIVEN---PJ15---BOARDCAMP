@@ -1,4 +1,4 @@
-import { connection } from "../db/postgres"
+import { connection } from "../db/postgres.js"
 
 export function createGame(body){
     return;
