@@ -1,15 +1,39 @@
-import { database } from "../db/postgres.js"
+import * as categoryRepository from "../repositories/categoriesRepository.js"
 
 //checks if name is available
 export async function checkName(name) {
 
-    const record = await database.query(`SELECT name FROM categories WHERE name = $1`, [name])
+    const record = await categoryRepository.findCategoryName(name);
 
-    if(record) throw {
+    if(record.rowCount > 0) throw {
         type: 'invalid_name',
         status: 409,
         message: 'The category you are trying to create already exists.'
     };
 
     return;
+}
+
+//checks if category exists
+export async function checkCategoryId(id){
+    const record = await categoryRepository.findCategoryId(id);
+
+    if(record.rowCount === 0) throw {
+        type: 'invalid_category',
+        status: 409,
+        message: 'The category you are trying to register your game does not exist.'
+    };
+
+    return;
+}
+
+//registers the category on the database
+export async function createCategory(teach){
+    return await categoryRepository.createCategory(teach);
+}
+
+//get the categories from the database
+export async function readCategories(){
+    const response = await categoryRepository.readCategories();
+    return response.rows;
 }
