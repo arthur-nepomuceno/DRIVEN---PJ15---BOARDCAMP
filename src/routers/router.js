@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { categoriesRouter } from "./categoriesRouter.js";
-import { clientsRouter } from "./clientsRouter.js";
+import { customersRouter } from "./customersRouter.js";
 import { gamesRouter } from "./gamesRouter.js";
 import { rentsRouter } from "./rentsRouter.js";
 
 const router = Router();
 
 router.use(categoriesRouter);
-router.use(clientsRouter);
+router.use(customersRouter);
 router.use(gamesRouter);
 router.use(rentsRouter);
 

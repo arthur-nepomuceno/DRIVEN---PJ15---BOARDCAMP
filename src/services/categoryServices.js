@@ -15,8 +15,8 @@ export async function checkName(name) {
 }
 
 //checks if category exists
-export async function checkCategoryId(id){
-    const record = await categoryRepository.findCategoryId(id);
+export async function checkElementId(id){
+    const record = await categoryRepository.findElementId(id);
 
     if(record.rowCount === 0) throw {
         type: 'invalid_category',
