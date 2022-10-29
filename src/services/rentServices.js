@@ -54,16 +54,22 @@ export async function checkGameAvailability(gameId) {
     const stockTotal = game.rows[0].stockTotal;
     const openRents = records.rowCount;
 
-    if(openRents >= stockTotal) throw {
+    if (openRents >= stockTotal) throw {
         type: 'game_unavailable',
         status: 400,
         message: '_All our versions of this game are rented_'
     }
-    
+
     return;
 }
 
-export async function addElement(element){
+export async function addElement(element) {
     await rentsRepository.addElement(element);
     return;
+}
+
+export async function getElements() {
+    const record = await rentsRepository.getElements();
+
+    return record;
 }

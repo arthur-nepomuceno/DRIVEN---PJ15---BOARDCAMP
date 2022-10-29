@@ -32,7 +32,25 @@ export async function addElement(element){
 }
 
 export async function getElements(){
-    return;
+    const query = `
+        SELECT 
+            rentals.id,
+            rentals."customerId",
+            rentals."gameId",
+            rentals."rentDate",
+            rentals."daysRented",
+            rentals."returnDate",
+            rentals."originalPrice",
+            rentals."delayFee",
+            games.name,
+            games."categoryId",
+            categories.name AS "categoryName"
+        FROM rentals
+        JOIN customers ON customers.id = rentals."customerId"
+        JOIN games ON games.id = rentals."gameId"
+        JOIN categories on categories.id = games."categoryId"
+    `
+    return await database.query(query);
 }
 
 export async function updateElement(id){

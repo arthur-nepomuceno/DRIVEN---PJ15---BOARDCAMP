@@ -37,7 +37,8 @@ export async function addElement(req, res){
 }
 
 export async function getElements(req, res){
-    return res.status(200).send('Read rents OK.')
+    const response = await rentServices.getElements(); 
+    return res.status(200).send(response)
 }
 
 export async function updateElement(req, res){
