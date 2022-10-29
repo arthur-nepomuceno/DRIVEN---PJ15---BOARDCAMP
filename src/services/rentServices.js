@@ -41,6 +41,25 @@ export async function getOriginalPrice(daysRented, gameId) {
 }
 
 export async function checkGameAvailability(gameId) {
+    //search for game
+    //searcf for rent records of this game
+    /*
+        compare the number of games available in stock
+        with the number of records with returnDate = null
+    */
+
+    const game = await rentsRepository.getElementByGameId(gameId);
+    const records = await rentsRepository.getElementsByGameId(gameId);
+
+    const stockTotal = game.rows[0].stockTotal;
+    const openRents = records.rowCount;
+
+    if(openRents >= stockTotal) throw {
+        type: 'game_unavailable',
+        status: 400,
+        message: '_All our versions of this game are rented_'
+    }
+    
     return;
 }
 

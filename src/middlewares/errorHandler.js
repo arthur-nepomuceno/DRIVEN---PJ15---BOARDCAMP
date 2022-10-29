@@ -13,6 +13,7 @@ export function errorHandler(error, req, res, next){
     if(type === 'invalid_customer') return res.status(status).send(message);
     if(type === 'invalid_game') return res.status(status).send(message);
     if(type === 'invalid_rent_time') return res.status(status).send(message);
+    if(type === 'game_unavailable') return res.status(status).send(message);
 
     return res.status(500).send(`Unexpected server error: ${error}.`)
 }

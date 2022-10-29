@@ -19,6 +19,7 @@ export async function addElement(req, res){
     const originalPrice = await rentServices.getOriginalPrice(daysRented, gameId);
     
     //check game availability
+    await rentServices.checkGameAvailability(gameId)
 
     const element = {
         customerId, 
@@ -32,7 +33,7 @@ export async function addElement(req, res){
 
     await rentServices.addElement(element);
 
-    return res.status(201).send(`Created.`);
+    return res.status(201).send('Created.');
 }
 
 export async function getElements(req, res){
