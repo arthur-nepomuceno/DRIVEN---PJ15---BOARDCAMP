@@ -31,7 +31,57 @@ export async function addElement(element){
     return await database.query(query, params);
 }
 
-export async function getElements(){
+export async function getElements(customerId, gameId){
+    if(customerId){
+        const query = `
+            SELECT
+                rentals.id,
+                rentals."customerId",
+                rentals."gameId",
+                rentals."rentDate",
+                rentals."daysRented",
+                rentals."returnDate",
+                rentals."originalPrice",
+                rentals."delayFee",
+                customers.name AS "customerName",
+                games.name AS "gameName",
+                games."categoryId",
+                categories.name AS "categoryName"
+            FROM rentals
+            JOIN customers ON customers.id = rentals."customerId"
+            JOIN games ON games.id = rentals."gameId"
+            JOIN categories ON categories.id = games."categoryId"
+            WHERE rentals."customerId" = $1
+        `
+        const params = [customerId]
+        return await database.query(query, params);
+    }
+
+    if(gameId){        
+        const query = `
+            SELECT
+                rentals.id,
+                rentals."customerId",
+                rentals."gameId",
+                rentals."rentDate",
+                rentals."daysRented",
+                rentals."returnDate",
+                rentals."originalPrice",
+                rentals."delayFee",
+                customers.name AS "customerName",
+                games.name AS "gameName",
+                games."categoryId",
+                categories.name AS "categoryName"
+            FROM rentals
+            JOIN customers ON customers.id = rentals."customerId"
+            JOIN games ON games.id = rentals."gameId"
+            JOIN categories ON categories.id = games."categoryId"
+            WHERE rentals."gameId" = $1
+        `
+        const params = [gameId]
+        return await database.query(query, params);
+    }
+
     const query = `
         SELECT
             rentals.id,

@@ -68,12 +68,29 @@ export async function addElement(element) {
     return;
 }
 
-export async function getElements() {
+export async function getElements(customerId, gameId) {
+    if(customerId){
+        const record = await rentsRepository.getElements(customerId, null);
+        let response = getList(record.rows);
+        return response;
+    }
+
+    if(gameId){
+        const record = await rentsRepository.getElements(null, gameId);
+        let response = getList(record.rows);
+        return response;
+    }
+
     const record = await rentsRepository.getElements();
-    let response = [];
-    for(let i = 0; i < record.rows.length; i++){
-        const element = record.rows[i];
-        response.push(
+    let response = getList(record.rows);
+    return response;
+}
+
+function getList(arr) {
+    let list = []
+    for (let i = 0; i < arr.length; i++) {
+        const element = arr[i];
+        list.push(
             {
                 id: element.id,
                 customerId: element.customerId,
@@ -96,20 +113,5 @@ export async function getElements() {
             }
         )
     }
-
-    // const { id, 
-    //         customerId,
-    //         gameId,
-    //         rentDate,
-    //         daysRented,
-    //         returnDate,
-    //         originalPrice,
-    //         delayFee,
-    //         customerName,
-    //         gameName,
-    //         categoryId,
-    //         categoryName } = record.rows;
-
-
-    return response;
+    return list;
 }
