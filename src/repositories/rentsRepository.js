@@ -33,7 +33,7 @@ export async function addElement(element){
 
 export async function getElements(){
     const query = `
-        SELECT 
+        SELECT
             rentals.id,
             rentals."customerId",
             rentals."gameId",
@@ -42,13 +42,14 @@ export async function getElements(){
             rentals."returnDate",
             rentals."originalPrice",
             rentals."delayFee",
-            games.name,
+            customers.name AS "customerName",
+            games.name AS "gameName",
             games."categoryId",
             categories.name AS "categoryName"
         FROM rentals
         JOIN customers ON customers.id = rentals."customerId"
         JOIN games ON games.id = rentals."gameId"
-        JOIN categories on categories.id = games."categoryId"
+        JOIN categories ON categories.id = games."categoryId"
     `
     return await database.query(query);
 }

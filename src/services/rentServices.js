@@ -70,6 +70,46 @@ export async function addElement(element) {
 
 export async function getElements() {
     const record = await rentsRepository.getElements();
+    let response = [];
+    for(let i = 0; i < record.rows.length; i++){
+        const element = record.rows[i];
+        response.push(
+            {
+                id: element.id,
+                customerId: element.customerId,
+                gameId: element.gameId,
+                rentDate: element.rentDate,
+                daysRented: element.daysRented,
+                returnDate: element.returnDate,
+                originalPrice: element.originalPrice,
+                delayFee: element.delayFee,
+                customer: {
+                    id: element.customerId,
+                    name: element.customerName,
+                },
+                game: {
+                    id: element.gameId,
+                    categoryId: element.categoryId,
+                    categoryName: element.categoryName
+                }
 
-    return record;
+            }
+        )
+    }
+
+    // const { id, 
+    //         customerId,
+    //         gameId,
+    //         rentDate,
+    //         daysRented,
+    //         returnDate,
+    //         originalPrice,
+    //         delayFee,
+    //         customerName,
+    //         gameName,
+    //         categoryId,
+    //         categoryName } = record.rows;
+
+
+    return response;
 }
