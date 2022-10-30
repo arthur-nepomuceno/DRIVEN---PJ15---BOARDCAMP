@@ -1,4 +1,5 @@
 import * as rentsRepository from "../repositories/rentsRepository.js"
+import dayjs from "dayjs";
 
 export async function checkCustomerId(customerId) {
     const response = await rentsRepository.getElementByCustomerId(customerId);
@@ -31,7 +32,7 @@ export async function checkDaysRented(daysRented) {
 }
 
 export async function getRentDate() {
-    return new Date();
+    return dayjs().format('YYYY-MM-DD');
 }
 
 export async function getOriginalPrice(daysRented, gameId) {
@@ -68,6 +69,12 @@ export async function addElement(element) {
     return;
 }
 
+export async function getElementById(id) {
+    const record = await rentsRepository.getElementById(id);
+    const response = getList(record.rows);
+    return response;
+}
+
 export async function getElements(customerId, gameId) {
     if (customerId) {
         const record = await rentsRepository.getElements(customerId, null);
@@ -88,16 +95,16 @@ export async function getElements(customerId, gameId) {
 
 export async function checkElementId(id) {
     const response = await rentsRepository.getElementById(id);
-    if(response.rowCount === 0) throw {
+    if (response.rowCount === 0) throw {
         type: 'invalid_id',
         status: 404,
         message: '_the rent you are looking for does not exist_'
     }
 }
 
-export async function checkOpenRent(id){
+export async function checkOpenRent(id) {
     const response = await rentsRepository.getElementById(id);
-    if(response.rows[0].returnDate !== null) throw {
+    if (response.rows[0].returnDate !== null) throw {
         type: 'closed_rent',
         status: 400,
         message: '_the rent you are trying to close is already closed_'
@@ -133,4 +140,25 @@ function getList(arr) {
         )
     }
     return list;
+}
+
+export async function getReturnDate() {
+    return dayjs().format('YYYY-MM-DD');
+}
+
+export async function getDelayFee(id, returnDate) {
+    const element = await rentsRepository.getElementById(id);
+    const { rentDate, daysRented, originalPrice } = element.rows[0];
+
+    const rentTime = dayjs(returnDate).diff(rentDate, "days");
+    const delay = rentTime - daysRented;
+    if(delay > 0){
+        return delay * originalPrice;
+    }
+
+    return 0; 
+}
+
+export async function closeRent(id, returnDate, delayFee){
+    return await rentsRepository.updateElement(id, returnDate, delayFee);
 }

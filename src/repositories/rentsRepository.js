@@ -105,11 +105,39 @@ export async function getElements(customerId, gameId){
 }
 
 export async function getElementById(id){
-    return await database.query(`SELECT * FROM rentals WHERE id = $1`, [id]);
+    const query = `
+        SELECT
+            rentals.id,
+            rentals."customerId",
+            rentals."gameId",
+            rentals."rentDate",
+            rentals."daysRented",
+            rentals."returnDate",
+            rentals."originalPrice",
+            rentals."delayFee",
+            customers.name AS "customerName",
+            games.name AS "gameName",
+            games."categoryId",
+            categories.name AS "categoryName"
+        FROM rentals
+        JOIN customers ON customers.id = rentals."customerId"
+        JOIN games ON games.id = rentals."gameId"
+        JOIN categories ON categories.id = games."categoryId"
+        WHERE rentals.id = $1
+    `
+    return await database.query(query, [id]);
 }
 
-export async function updateElement(id){
-    return;
+export async function updateElement(id, returnDate, delayFee){
+    const query = `
+        UPDATE rentals
+        SET "returnDate" = $1, "delayFee" = $2
+        WHERE id = $3 
+    `;
+
+    const params = [returnDate, delayFee, id];
+    
+    return await database.query(query, params);
 }
 
 export async function deleteElement(id){

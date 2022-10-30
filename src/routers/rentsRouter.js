@@ -7,4 +7,4 @@ export const rentsRouter = Router();
 
 rentsRouter.post('/rents', checkSchema(rentSchema), addElement);
 rentsRouter.get('/rents', getElements);
-rentsRouter.put('/rents/:id/return', updateElement);
+rentsRouter.post('/rents/:id/return', updateElement);
