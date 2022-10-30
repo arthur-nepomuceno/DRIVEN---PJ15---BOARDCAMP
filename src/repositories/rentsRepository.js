@@ -104,6 +104,10 @@ export async function getElements(customerId, gameId){
     return await database.query(query);
 }
 
+export async function getElementById(id){
+    return await database.query(`SELECT * FROM rentals WHERE id = $1`, [id]);
+}
+
 export async function updateElement(id){
     return;
 }

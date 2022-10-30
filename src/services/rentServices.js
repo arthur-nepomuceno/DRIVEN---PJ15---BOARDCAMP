@@ -69,13 +69,13 @@ export async function addElement(element) {
 }
 
 export async function getElements(customerId, gameId) {
-    if(customerId){
+    if (customerId) {
         const record = await rentsRepository.getElements(customerId, null);
         let response = getList(record.rows);
         return response;
     }
 
-    if(gameId){
+    if (gameId) {
         const record = await rentsRepository.getElements(null, gameId);
         let response = getList(record.rows);
         return response;
@@ -84,6 +84,25 @@ export async function getElements(customerId, gameId) {
     const record = await rentsRepository.getElements();
     let response = getList(record.rows);
     return response;
+}
+
+export async function checkElementId(id) {
+    const response = await rentsRepository.getElementById(id);
+    if(response.rowCount === 0) throw {
+        type: 'invalid_id',
+        status: 404,
+        message: '_the rent you are looking for does not exist_'
+    }
+}
+
+export async function checkOpenRent(id){
+    const response = await rentsRepository.getElementById(id);
+    if(response.rows[0].returnDate !== null) throw {
+        type: 'closed_rent',
+        status: 400,
+        message: '_the rent you are trying to close is already closed_'
+    }
+    return;
 }
 
 function getList(arr) {

@@ -54,7 +54,16 @@ export async function getElements(req, res) {
 }
 
 export async function updateElement(req, res) {
-    return res.status(202).send('Update rent OK.')
+    const { id } = req.params
+
+    await rentServices.checkElementId(id);
+    await rentServices.checkOpenRent(id);
+
+    //calculate returnDate
+    //calculate delayFee
+    //update element
+    
+    return res.status(202).send(id)
 }
 
 export async function deleteElement(req, res) {
