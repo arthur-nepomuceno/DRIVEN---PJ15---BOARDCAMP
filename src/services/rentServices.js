@@ -107,7 +107,7 @@ export async function checkOpenRent(id) {
     if (response.rows[0].returnDate !== null) throw {
         type: 'closed_rent',
         status: 400,
-        message: '_the rent you are trying to close is already closed_'
+        message: '_the rent you are looking for is already closed_'
     }
     return;
 }
@@ -161,4 +161,8 @@ export async function getDelayFee(id, returnDate) {
 
 export async function closeRent(id, returnDate, delayFee){
     return await rentsRepository.updateElement(id, returnDate, delayFee);
+}
+
+export async function deleteRent(id){
+    return await rentsRepository.deleteElement(id)
 }

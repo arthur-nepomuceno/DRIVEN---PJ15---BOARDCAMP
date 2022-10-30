@@ -70,5 +70,12 @@ export async function updateElement(req, res) {
 }
 
 export async function deleteElement(req, res) {
-    return res.status(202).send('Delete rent OK.')
+    const { id } = req.params
+
+    await rentServices.checkElementId(id);
+    await rentServices.checkOpenRent(id);
+
+    await rentServices.deleteRent(id);
+
+    return res.status(202).send('Deleted.')
 }

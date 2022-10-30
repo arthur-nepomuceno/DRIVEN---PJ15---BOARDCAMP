@@ -141,5 +141,5 @@ export async function updateElement(id, returnDate, delayFee){
 }
 
 export async function deleteElement(id){
-    return;
+    return await database.query(`DELETE FROM rentals WHERE id = $1`, [id])
 }
