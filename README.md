@@ -53,20 +53,28 @@ GET /categories
     - Rota para listar todas as categorias.
     - headers: {}
     - body: {}
-    - response: {
-      id: 1,
-      name: "my_category"    
-    }
+    - response: 
+    [
+       {
+         "id": 1,
+         "name": "my_category"    
+       }
+       {
+         "id": 2,
+         "name": "my_other_category"    
+       }
+    ]
 ```
     
 ```yml 
 POST /categories
     - Rota para cadastrar uma nova categoria.
     - headers: {}
-    - body: {
+    - body: 
+    {
       "name": "my_new_category"
     }
-    - response: {}
+    - response: status 201 - Created.
 ```
     
 ```yml 
@@ -74,24 +82,32 @@ GET /games
     - Rota para listar todos os jogos.
     - headers: {}
     - body: {}
-    - response: {
-      id: 1,
-      name: "my_game"    
-    }
+    - response: 
+    [
+       {
+         "id": 1,
+         "name": "my_game"    
+       }
+       {
+         "id": 2,
+         "name": "my_other_game"    
+       }
+    ]
 ```
 
 ```yml
 POST /games
     - Rota para cadastrar um novo jogo.
     - headers: {}
-    - body: {
+    - body: 
+    {
       "name": "My_New_Game",
       "image": "http://",
       "stockTotal": 3,             //número de jogos no estoque
       "categoryId": 1,             //categoria a qual o jogo pertence
       "pricePerDay": 1500,         //custo por dia de aluguel
     }
-    - response: {}
+    - response: status 201 - Created.
 ``` 
 
 ```yml
@@ -99,20 +115,21 @@ GET /customers
     - Rota para listar todos os clientes.
     - headers: {}
     - body: {}
-    - response: [
+    - response: 
+    [
        {
-         id: 1,
-         name: "My_First_Client",
-         phone: "21998899222",
-         cpf: "01234567890",
-         birthday: "1992-10-05"
+         "id": 1,
+         "name": "My_First_Client",
+         "phone": "21998899222",
+         "cpf": "01234567890",
+         "birthday": "1992-10-05"
        },       
        {
-         id: 2,
-         name: "My_Second_Client",
-         phone: "21998899222",
-         cpf: "01234567891",
-         birthday: "1989-03-17"
+         "id": 2,
+         "name": "My_Second_Client",
+         "phone": "21998899222",
+         "cpf": "01234567891",
+         "birthday": "1989-03-17"
        }
     ]
 ```
@@ -122,12 +139,13 @@ GET /customers/:id
     - Rota para listar o cliente com o id passado como parâmetro.
     - headers: {}
     - body: {}
-    - response: {
-      id: 1,
-      name: "My_First_Client",
-      phone: "21998899222",
-      cpf: "01234567890",
-      birthday: "1992-10-05"
+    - response: 
+    {
+      "id": 1,
+      "name": "My_First_Client",
+      "phone": "21998899222",
+      "cpf": "01234567890",
+      "birthday": "1992-10-05"
     }
 ```
 
@@ -135,18 +153,20 @@ GET /customers/:id
 POST /customers
     - Rota para registrar um novo cliente.
     - headers: {}
-    - body: {
+    - body: 
+    {
       "name": "My_New_Client",
       "phone": "21998899222",
       "cpf": "0123456798",
       "birthday": "1996-08-23"
     }
-    - response: {
-      id: 3
-      name: "My_New_Client",
-      phone: "21998899222",
-      cpf: "0123456798",
-      birthday: "1996-08-23"
+    - response: 
+    {
+      "id": 3
+      "name": "My_New_Client",
+      "phone": "21998899222",
+      "cpf": "0123456798",
+      "birthday": "1996-08-23"
     }
 ```
 
@@ -154,47 +174,137 @@ POST /customers
 PUT /customers/:id
     - Rota para atualizar os dados do cliente com o id passado como parâmetro.
     - headers: {}
-    - body: {
+    - body: 
+    {
       "name": "My_Second_Client",
       "phone": "13923768456",
       "cpf": "01234567891",
       "birthday": "1989-03-17"
     }
-    - response: {
-      id: 2,
-      name: "My_Second_Client",
-      phone: "13923768456",
-      cpf: "01234567891",
-      birthday: "1989-03-17"
+    - response: 
+    {
+      "id": 2,
+      "name": "My_Second_Client",
+      "phone": "13923768456",
+      "cpf": "01234567891",
+      "birthday": "1989-03-17"
     }
 ```
 
 ```yml
 GET /rents
-    - Rota para deletar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
+    - Rota para listar todos os alugueis, abertos e fechados.
+    - headers: {}
     - body: {}
+    - response: 
+    [
+        {
+          "id": 1,
+          "customerId": 1,
+          "gameId": 22,
+          "rentDate": "2022-10-29T03:00:00.000Z",
+          "daysRented": 3,
+          "returnDate": null,
+          "originalPrice": 4500,
+          "delayFee": null,
+          "customer": {
+            "id": 1,
+            "name": "João Alfredo"
+          },
+          "game": {
+            "id": 22,
+            "categoryId": 12,
+            "categoryName": "Strategy"
+          }
+        },
+        {
+          "id": 2,
+          "customerId": 2,
+          "gameId": 23,
+          "rentDate": "2022-10-29T03:00:00.000Z",
+          "daysRented": 2,
+          "returnDate": "2022-10-30T03:00:00.000Z",
+          "originalPrice": 1800,
+          "delayFee": 0,
+          "customer": {
+            "id": 2,
+            "name": "Alberto Augusto"
+          },
+          "game": {
+            "id": 23,
+            "categoryId": 11,
+            "categoryName": "Investigation"
+          }
+        }
+    ]
 ```
 
 ```yml
 POST /rents
-    - Rota para deletar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
-    - body: {}
+    - Rota para registrar um novo aluguel.
+    - headers: {}
+    - body:
+    {
+      customerId: 1,
+      gameId: 22,
+      daysRented: 3
+    }
+    - response: 
+    {
+      "id": 3,
+      "customerId": 1,
+      "gameId": 22,
+      "rentDate": "2022-10-29T03:00:00.000Z",
+      "daysRented": 3,
+      "returnDate": null,
+      "originalPrice": 4500,
+      "delayFee": null,
+      "customer": {
+        "id": 1,
+        "name": "João Alfredo"
+      },
+      "game": {
+        "id": 22,
+        "categoryId": 12,
+        "categoryName": "Strategy"
+      }
+    }
 ```
 
 ```yml
 POST /rents/:id/return
-    - Rota para deletar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
+    - Rota para finalizar um aluguel, alterando o campo "returnDate" 
+      de "null" para a data no momento da devolução.
+    - headers: {}
     - body: {}
+    - response:
+    {
+      "id": 2,
+      "customerId": 2,
+      "gameId": 23,
+      "rentDate": "2022-10-29T03:00:00.000Z",
+      "daysRented": 2,
+      "returnDate": "2022-10-30T03:00:00.000Z",
+      "originalPrice": 1800,
+      "delayFee": 0,
+      "customer": {
+        "id": 2,
+        "name": "Alberto Augusto"
+      },
+      "game": {
+        "id": 23,
+        "categoryId": 11,
+        "categoryName": "Investigation"
+      }
+    }
 ```
 
 ```yml
 DELETE /rents/:id
-    - Rota para deletar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
+    - Rota para deletar um aluguel, passando seu id como parâmetro.
+    - headers: {}
     - body: {}
+    - response: status 202 - Deleted.
 ```
 
 
@@ -218,7 +328,7 @@ npm install
 
 Finalizado o processo, é só inicializar o servidor
 ```
-npm start
+npm run dev
 ```
 
 :stop_sign: Não esqueça de repetir os passos acima com o [repositório](https://github.com/luanalessa/projeto-frontend.git) que contem a interface da aplicação, para testar o projeto por completo.
