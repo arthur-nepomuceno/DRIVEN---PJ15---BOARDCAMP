@@ -1,7 +1,7 @@
 # <p align = "center">  - Board Camp - </p>
 
 <p align = "center">
-   <img src="https://img.shields.io/badge/author-Arthur Nepomuceno-4dae71?style=flat-square" />
+   <img src="https://img.shields.io/badge/author-Arthur Nepomuceno-093D04?style=flat-square" />
 </p>
 
 
@@ -12,6 +12,19 @@ Com o objetivo de proporcionar vivências emocionantes, a humanidade desenvolveu
 Para nossa alegria, existem agentes do universo empenhados em manter viva essa antiga tradição.
 
 Esses agentes se uniram e decidiram criar uma plataforma que disponibiliza jogos de tabuleiro para serem alugados.
+
+***
+##  :clipboard: Introdução
+
+Este projeto gira em torno de duas entidades principais: jogos e clientes.
+Os jogos são divididos por categorias, com todo jogo pertencendo a uma única categoria.
+Os clientes alugam jogos, gerando registros de aluguéis.
+
+Com esse cenário, há quatro entidades:
+- categorias
+- jogos
+- clientes
+- alugueis
 
 ***
 
@@ -37,73 +50,123 @@ Tecnologias
 
 ```yml
 GET /categories
-    - Rota para cadastrar um novo usuário
+    - Rota para listar todas as categorias.
     - headers: {}
-    - body:{
-        "nome": "Lorem ipsum",
-        "email": "lorem@gmail.com",
-        "senha": "loremipsum"
-}
+    - body: {}
+    - response: {
+      id: 1,
+      name: "my_category"    
+    }
 ```
     
 ```yml 
 POST /categories
-    - Rota para fazer login
+    - Rota para cadastrar uma nova categoria.
     - headers: {}
     - body: {
-    "email": "lorem@gmail.com",
-    "senha": "loremipsum"
+      "name": "my_new_category"
     }
+    - response: {}
 ```
     
 ```yml 
 GET /games
-    - Rota para listar todos os usuários
-    - headers: { "Authorization": "Bearer $token" }
+    - Rota para listar todos os jogos.
+    - headers: {}
     - body: {}
+    - response: {
+      id: 1,
+      name: "my_game"    
+    }
 ```
 
 ```yml
 POST /games
-    - Rota para listar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
-    - body: {}
+    - Rota para cadastrar um novo jogo.
+    - headers: {}
+    - body: {
+      "name": "My_New_Game",
+      "image": "http://",
+      "stockTotal": 3,             //número de jogos no estoque
+      "categoryId": 1,             //categoria a qual o jogo pertence
+      "pricePerDay": 1500,         //custo por dia de aluguel
+    }
+    - response: {}
 ``` 
 
 ```yml
 GET /customers
-    - Rota para atualizar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
-    - body: {
-        "nome": "Lorem ipsum2",
-        "email": "lorem2@gmail.com",
-        "senha": "loremipsum2"
-    }
+    - Rota para listar todos os clientes.
+    - headers: {}
+    - body: {}
+    - response: [
+       {
+         id: 1,
+         name: "My_First_Client",
+         phone: "21998899222",
+         cpf: "01234567890",
+         birthday: "1992-10-05"
+       },       
+       {
+         id: 2,
+         name: "My_Second_Client",
+         phone: "21998899222",
+         cpf: "01234567891",
+         birthday: "1989-03-17"
+       }
+    ]
 ```
  
 ```yml
 GET /customers/:id
-    - Rota para deletar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
+    - Rota para listar o cliente com o id passado como parâmetro.
+    - headers: {}
     - body: {}
+    - response: {
+      id: 1,
+      name: "My_First_Client",
+      phone: "21998899222",
+      cpf: "01234567890",
+      birthday: "1992-10-05"
+    }
 ```
 
 ```yml
 POST /customers
-    - Rota para atualizar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
+    - Rota para registrar um novo cliente.
+    - headers: {}
     - body: {
-        "nome": "Lorem ipsum2",
-        "email": "lorem2@gmail.com",
-        "senha": "loremipsum2"
+      "name": "My_New_Client",
+      "phone": "21998899222",
+      "cpf": "0123456798",
+      "birthday": "1996-08-23"
+    }
+    - response: {
+      id: 3
+      name: "My_New_Client",
+      phone: "21998899222",
+      cpf: "0123456798",
+      birthday: "1996-08-23"
     }
 ```
 
 ```yml
 PUT /customers/:id
-    - Rota para deletar um usuário pelo id
-    - headers: { "Authorization": "Bearer $token" }
-    - body: {}
+    - Rota para atualizar os dados do cliente com o id passado como parâmetro.
+    - headers: {}
+    - body: {
+      "name": "My_Second_Client",
+      "phone": "13923768456",
+      "cpf": "01234567891",
+      "birthday": "1989-03-17"
+    }
+    - response: {
+      id: 2,
+      name: "My_Second_Client",
+      phone: "13923768456",
+      cpf: "01234567891",
+      birthday: "1989-03-17"
+    }
 ```
 
 ```yml
