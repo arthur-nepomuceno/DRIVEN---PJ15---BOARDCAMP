@@ -207,7 +207,7 @@ Este projeto foi inicializado com o Node Package Manager, então certifique-se q
 Primeiro, faça o clone desse repositório na sua maquina:
 
 ```
-git clone https://github.com/luanalessa/projeto-backend.git
+git clone https://github.com/arthur-nepomuceno/driven-pj15-boardCamp.git
 ```
 
 Depois, dentro da pasta, rode o seguinte comando para instalar as dependencias.
