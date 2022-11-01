@@ -1,3 +1,7 @@
+<p align="center">
+   <img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f5fa-fe0f.svg" style="width: 89px; height: 89px"/>
+</p>
+
 # <p align = "center">  - Board Camp - </p>
 
 <p align = "center">
@@ -5,7 +9,7 @@
 </p>
 
 
-##  :clipboard: Descrição
+##  :clipboard: Apresentação
 
 Neste mundo cada vez mais digitalizado, há aqueles e aquelas que sentem falta de experiências fora do universo das telas.
 Com o objetivo de proporcionar vivências emocionantes, a humanidade desenvolveu os jogos de tabuleiro.
@@ -43,6 +47,29 @@ Tecnologias
 - Express
 - Express Async Erros
 - Joi
+
+***
+
+## 🏁 Rodando a aplicação
+
+Este projeto foi inicializado com o Node Package Manager, então certifique-se que voce tem a ultima versão estável do [Node.js](https://nodejs.org/en/download/) e [npm](https://www.npmjs.com/) rodando localmente.
+
+Primeiro, faça o clone desse repositório na sua maquina:
+
+```
+git clone https://github.com/arthur-nepomuceno/driven-pj15-boardCamp.git
+```
+
+Depois, dentro da pasta, rode o seguinte comando para instalar as dependencias.
+
+```
+npm install
+```
+
+Finalizado o processo, é só inicializar o servidor
+```
+npm run dev
+```
 
 ***
 
@@ -309,26 +336,3 @@ DELETE /rents/:id
 
 
 ***
-
-## 🏁 Rodando a aplicação
-
-Este projeto foi inicializado com o Node Package Manager, então certifique-se que voce tem a ultima versão estável do [Node.js](https://nodejs.org/en/download/) e [npm](https://www.npmjs.com/) rodando localmente.
-
-Primeiro, faça o clone desse repositório na sua maquina:
-
-```
-git clone https://github.com/arthur-nepomuceno/driven-pj15-boardCamp.git
-```
-
-Depois, dentro da pasta, rode o seguinte comando para instalar as dependencias.
-
-```
-npm install
-```
-
-Finalizado o processo, é só inicializar o servidor
-```
-npm run dev
-```
-
-:stop_sign: Não esqueça de repetir os passos acima com o [repositório](https://github.com/luanalessa/projeto-frontend.git) que contem a interface da aplicação, para testar o projeto por completo.
